@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2021 a las 20:38:00
+-- Tiempo de generación: 02-11-2021 a las 14:03:12
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -96,6 +96,34 @@ INSERT INTO `usuarios` (`id`, `username`, `nombre`, `apellido`, `correo`, `passw
 (2, 'copadoemmanuel', 'Jorge  ', 'Copado', 'copadoj@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 1),
 (3, 'copadoemmanuel2', 'Jorge  ', 'Copado', 'copadoj@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 2);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vacas`
+--
+
+CREATE TABLE `vacas` (
+  `id` int(100) NOT NULL,
+  `arete` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `sexo` int(5) NOT NULL,
+  `peso_ini` float NOT NULL,
+  `fecha_compra` date NOT NULL,
+  `edad` int(20) NOT NULL,
+  `numero_corral` int(10) NOT NULL,
+  `gasto` float DEFAULT NULL,
+  `status` int(5) NOT NULL,
+  `procedencia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_registro` date NOT NULL,
+  `fecha_finalizacion` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `vacas`
+--
+
+INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`) VALUES
+(1, '12345', 1, 201.5, '2021-07-01', 15, 1, NULL, 1, 'Cocula', '2021-11-02', NULL);
+
 --
 -- Índices para tablas volcadas
 --
@@ -113,6 +141,12 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `vacas`
+--
+ALTER TABLE `vacas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -127,6 +161,12 @@ ALTER TABLE `corrales`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `vacas`
+--
+ALTER TABLE `vacas`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
