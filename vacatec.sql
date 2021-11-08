@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2021 a las 14:03:12
+-- Tiempo de generación: 08-11-2021 a las 06:28:13
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `corrales` (
   `id` int(11) NOT NULL,
-  `prom_edad` int(11) DEFAULT NULL,
+  `prom_edad` float DEFAULT NULL,
   `status` int(11) NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `num_vacas` int(11) DEFAULT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `corrales` (
 --
 
 INSERT INTO `corrales` (`id`, `prom_edad`, `status`, `fecha_inicio`, `num_vacas`, `num_machos`, `num_hembras`, `fecha_fin`) VALUES
-(1, NULL, 1, NULL, NULL, NULL, NULL, NULL),
+(1, 11.6667, 1, '2021-11-08', 3, 2, 1, NULL),
 (2, NULL, 1, NULL, NULL, NULL, NULL, NULL),
 (3, NULL, 1, NULL, NULL, NULL, NULL, NULL),
 (4, NULL, 1, NULL, NULL, NULL, NULL, NULL),
@@ -70,6 +70,28 @@ CREATE TABLE `corrales_exis` (
 
 INSERT INTO `corrales_exis` (`cantidad`) VALUES
 (10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `formulas`
+--
+
+CREATE TABLE `formulas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `maiz` float NOT NULL,
+  `soya` float NOT NULL,
+  `silo` float NOT NULL,
+  `rastrojo` float NOT NULL,
+  `algodon` float NOT NULL,
+  `ddg` float NOT NULL,
+  `avena` float NOT NULL,
+  `melaza` float NOT NULL,
+  `costo` float NOT NULL,
+  `existencia` float DEFAULT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -114,15 +136,18 @@ CREATE TABLE `vacas` (
   `status` int(5) NOT NULL,
   `procedencia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` date NOT NULL,
-  `fecha_finalizacion` date DEFAULT NULL
+  `fecha_finalizacion` date DEFAULT NULL,
+  `costo_inicial` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `vacas`
 --
 
-INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`) VALUES
-(1, '12345', 1, 201.5, '2021-07-01', 15, 1, NULL, 1, 'Cocula', '2021-11-02', NULL);
+INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`, `costo_inicial`) VALUES
+(1, '12341', 1, 210.3, '2021-07-01', 11, 1, NULL, 1, 'Cocula', '2021-11-08', NULL, 12000),
+(2, '12342', 2, 210.3, '2021-07-01', 15, 1, NULL, 1, 'Cocula', '2021-11-08', NULL, 13000),
+(3, '12343', 1, 210.3, '2021-07-01', 9, 1, NULL, 1, 'Granja', '2021-11-08', NULL, 0);
 
 --
 -- Índices para tablas volcadas
@@ -132,6 +157,12 @@ INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, 
 -- Indices de la tabla `corrales`
 --
 ALTER TABLE `corrales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `formulas`
+--
+ALTER TABLE `formulas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -157,6 +188,12 @@ ALTER TABLE `corrales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `formulas`
+--
+ALTER TABLE `formulas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -166,7 +203,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vacas`
 --
 ALTER TABLE `vacas`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
