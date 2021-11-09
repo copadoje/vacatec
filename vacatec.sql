@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2021 a las 06:28:13
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.2.32
+-- Tiempo de generación: 09-11-2021 a las 01:30:52
+-- Versión del servidor: 10.4.20-MariaDB
+-- Versión de PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,6 +93,42 @@ CREATE TABLE `formulas` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `formulas`
+--
+
+INSERT INTO `formulas` (`id`, `nombre`, `maiz`, `soya`, `silo`, `rastrojo`, `algodon`, `ddg`, `avena`, `melaza`, `costo`, `existencia`, `status`) VALUES
+(1, 'gt1', 10, 20, 40, 0, 1.9, 8.1, 10, 10, 4.6, NULL, 1),
+(2, 'gt2', 40, 2, 40, 0, 5, 3, 10, 0, 4.6, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `insumos`
+--
+
+CREATE TABLE `insumos` (
+  `id` int(11) NOT NULL,
+  `insumo` varchar(100) NOT NULL,
+  `precio` float NOT NULL,
+  `existencia` float NOT NULL,
+  `total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `insumos`
+--
+
+INSERT INTO `insumos` (`id`, `insumo`, `precio`, `existencia`, `total`) VALUES
+(1, 'MAIZ', 4.8, 0, 0),
+(2, 'SOYA', 9.8, 0, 0),
+(3, 'SILO', 1, 0, 0),
+(4, 'RASTROJO PICADO', 1.8, 0, 0),
+(5, 'SEMILLA DE ALGODON', 6.7, 0, 0),
+(6, 'DDG', 7, 0, 0),
+(7, 'AVENA', 3.5, 0, 0),
+(8, 'MELAZA', 3, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -166,6 +202,12 @@ ALTER TABLE `formulas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `insumos`
+--
+ALTER TABLE `insumos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -191,7 +233,13 @@ ALTER TABLE `corrales`
 -- AUTO_INCREMENT de la tabla `formulas`
 --
 ALTER TABLE `formulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `insumos`
+--
+ALTER TABLE `insumos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
