@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2021 a las 01:30:52
--- Versión del servidor: 10.4.20-MariaDB
--- Versión de PHP: 7.3.29
+-- Tiempo de generación: 09-11-2021 a las 06:15:32
+-- Versión del servidor: 10.4.13-MariaDB
+-- Versión de PHP: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -120,14 +120,14 @@ CREATE TABLE `insumos` (
 --
 
 INSERT INTO `insumos` (`id`, `insumo`, `precio`, `existencia`, `total`) VALUES
-(1, 'MAIZ', 4.8, 0, 0),
-(2, 'SOYA', 9.8, 0, 0),
-(3, 'SILO', 1, 0, 0),
-(4, 'RASTROJO PICADO', 1.8, 0, 0),
-(5, 'SEMILLA DE ALGODON', 6.7, 0, 0),
-(6, 'DDG', 7, 0, 0),
-(7, 'AVENA', 3.5, 0, 0),
-(8, 'MELAZA', 3, 0, 0);
+(1, 'MAIZ', 4.8, 200000, 960000),
+(2, 'SOYA', 9.8, 11000, 107800),
+(3, 'SILO', 1, 200000, 200000),
+(4, 'RASTROJO PICADO', 1.8, 10000, 18000),
+(5, 'SEMILLA DE ALGODON', 6.7, 23000, 154100),
+(6, 'DDG', 7, 45000, 315000),
+(7, 'AVENA', 3.5, 8000, 28000),
+(8, 'MELAZA', 3, 30000, 90000);
 
 -- --------------------------------------------------------
 

@@ -19,8 +19,7 @@ $kg = ($_POST['kg']);
 
 $data = array();
 
-//Verificamos si ya existe el usuario//
-$consulta="SELECT * FROM insumos WHERE insumo='$insumo'";
+$consulta="SELECT * FROM insumos WHERE id='$insumo'";
 $resultado = mysqli_query($conexion, $consulta);
 
 while ($row = mysqli_fetch_array($resultado)) {
@@ -34,14 +33,14 @@ if ($filas>0) {
                 $existencia_n = $kg + $existencia;
                 $price = $kg *$precio;
                 $total_n = $total + $price;
-                $insertar = "INSERT INTO insumos(insumo, precio, existencia, total) VALUES ('$insumo','$precio','0','0')";
-                $resultado = mysqli_query($conexion,$insertar);
+                $actualizar = "UPDATE insumos SET existencia ='$existencia_n', total ='$total_n' WHERE id='$insumo'"; 
+                $resultado = mysqli_query($conexion,$actualizar);   
                 $data['status'] = 'OK';
-                $data['result'] = 'INSUMO REGISTRADO EXITOSAMENTE';  
+                $data['result'] = 'INSUMO SURTIDO EXITOSAMENTE';  
             }
 else {
     $data['status'] = 'ERROR';
-    $data['result'] = 'LA FORMULA NO EXISTE';
+    $data['result'] = 'EL INSUMO NO EXISTE';
     }
 
 echo json_encode($data);
