@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2021 a las 06:15:32
+-- Tiempo de generación: 17-11-2021 a las 14:09:17
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -98,7 +98,7 @@ CREATE TABLE `formulas` (
 --
 
 INSERT INTO `formulas` (`id`, `nombre`, `maiz`, `soya`, `silo`, `rastrojo`, `algodon`, `ddg`, `avena`, `melaza`, `costo`, `existencia`, `status`) VALUES
-(1, 'gt1', 10, 20, 40, 0, 1.9, 8.1, 10, 10, 4.6, NULL, 1),
+(1, 'gt1', 10, 20, 40, 0, 1.9, 8.1, 10, 10, 4.6, 50, 1),
 (2, 'gt2', 40, 2, 40, 0, 5, 3, 10, 0, 4.6, NULL, 1);
 
 -- --------------------------------------------------------
@@ -120,14 +120,40 @@ CREATE TABLE `insumos` (
 --
 
 INSERT INTO `insumos` (`id`, `insumo`, `precio`, `existencia`, `total`) VALUES
-(1, 'MAIZ', 4.8, 200000, 960000),
-(2, 'SOYA', 9.8, 11000, 107800),
-(3, 'SILO', 1, 200000, 200000),
+(1, 'MAIZ', 4.8, 199996, 959978),
+(2, 'SOYA', 9.8, 10990, 107702),
+(3, 'SILO', 1, 199980, 199980),
 (4, 'RASTROJO PICADO', 1.8, 10000, 18000),
-(5, 'SEMILLA DE ALGODON', 6.7, 23000, 154100),
-(6, 'DDG', 7, 45000, 315000),
-(7, 'AVENA', 3.5, 8000, 28000),
-(8, 'MELAZA', 3, 30000, 90000);
+(5, 'SEMILLA DE ALGODON', 6.7, 22999, 154093),
+(6, 'DDG', 7, 44996, 314972),
+(7, 'AVENA', 3.5, 7995, 27982.5),
+(8, 'MELAZA', 3, 29995, 89985);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `medicamentos`
+--
+
+CREATE TABLE `medicamentos` (
+  `id` int(11) NOT NULL,
+  `producto` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `costo` float NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `arete` varchar(100) NOT NULL,
+  `corral` int(11) NOT NULL,
+  `total` float NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`id`, `producto`, `nombre`, `costo`, `cantidad`, `arete`, `corral`, `total`, `fecha`) VALUES
+(1, 1, 'CLOSTRI-10', 48, 2, '12341', 1, 96, '2021-11-15'),
+(2, 2, 'SINGLE SHOT', 112, 2, '12341', 1, 224, '2021-11-15');
 
 -- --------------------------------------------------------
 
@@ -181,9 +207,37 @@ CREATE TABLE `vacas` (
 --
 
 INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`, `costo_inicial`) VALUES
-(1, '12341', 1, 210.3, '2021-07-01', 11, 1, NULL, 1, 'Cocula', '2021-11-08', NULL, 12000),
+(1, '12341', 1, 210.3, '2021-07-01', 11, 1, 224, 1, 'Cocula', '2021-11-08', NULL, 12000),
 (2, '12342', 2, 210.3, '2021-07-01', 15, 1, NULL, 1, 'Cocula', '2021-11-08', NULL, 13000),
 (3, '12343', 1, 210.3, '2021-07-01', 9, 1, NULL, 1, 'Granja', '2021-11-08', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vacunas`
+--
+
+CREATE TABLE `vacunas` (
+  `id` int(11) NOT NULL,
+  `vacuna` varchar(100) NOT NULL,
+  `presentacion` int(11) NOT NULL,
+  `costo` float NOT NULL,
+  `existencia` int(11) NOT NULL,
+  `total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `vacunas`
+--
+
+INSERT INTO `vacunas` (`id`, `vacuna`, `presentacion`, `costo`, `existencia`, `total`) VALUES
+(1, 'CLOSTRI-10', 10, 48, 18, 864),
+(2, 'SINGLE SHOT', 10, 112, 18, 2016),
+(3, 'PROTECTOR-5', 10, 356.88, 20, 7137.6),
+(4, 'REVALOR G', 20, 27.8, 40, 1112),
+(5, 'MAXIBEEF', 20, 780, 40, 31200),
+(6, 'MASTER L5', 25, 1316.5, 50, 65825),
+(7, 'INMUNOIDI DB', 4, 205, 8, 1640);
 
 --
 -- Índices para tablas volcadas
@@ -208,6 +262,12 @@ ALTER TABLE `insumos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -217,6 +277,12 @@ ALTER TABLE `usuarios`
 -- Indices de la tabla `vacas`
 --
 ALTER TABLE `vacas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `vacunas`
+--
+ALTER TABLE `vacunas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -242,6 +308,12 @@ ALTER TABLE `insumos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -252,6 +324,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `vacas`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `vacunas`
+--
+ALTER TABLE `vacunas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
