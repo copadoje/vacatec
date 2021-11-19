@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2021 a las 14:09:17
+-- Tiempo de generación: 19-11-2021 a las 14:11:35
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `vacatec`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `control_pastura`
+--
+
+CREATE TABLE `control_pastura` (
+  `id` int(200) NOT NULL,
+  `corral` int(11) NOT NULL,
+  `formula` int(11) NOT NULL,
+  `num_animales` int(11) NOT NULL,
+  `dias_animal` int(11) NOT NULL,
+  `kg_ofrecidos` float NOT NULL,
+  `kg_acumulados` float NOT NULL,
+  `consumo_animal` float NOT NULL,
+  `consumo_promedio` float NOT NULL,
+  `costo_kg` float NOT NULL,
+  `costo_total` float NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -244,6 +265,12 @@ INSERT INTO `vacunas` (`id`, `vacuna`, `presentacion`, `costo`, `existencia`, `t
 --
 
 --
+-- Indices de la tabla `control_pastura`
+--
+ALTER TABLE `control_pastura`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `corrales`
 --
 ALTER TABLE `corrales`
@@ -288,6 +315,12 @@ ALTER TABLE `vacunas`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `control_pastura`
+--
+ALTER TABLE `control_pastura`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `corrales`
