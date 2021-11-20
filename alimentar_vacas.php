@@ -33,13 +33,44 @@ if ($filas>0) {
         $existencia_form = $row['existencia'];
     }  
 
-    if($existencia_form)
+    //Verificamos que hay existencia suficiente
+    if($existencia_form>=$kg){
+
     //Fecha de hoy
     $hoy =strftime( "%Y-%m-%d", time() );
+
+
+    /*
+
+          Hay existencia
+
+    */
     
-                //Si hay existencia
-                $total_new = ($qty * $costo);
-                if($existencia>=$qty){
+        
+    $consulta="SELECT * FROM control_pastura WHERE corral='$corral'";
+    $resultado = mysqli_query($conexion, $consulta);
+    $filas=mysqli_num_rows($resultado);
+    
+    //Si ya hay un registro de ese corral
+    if ($filas>0) {
+        while ($row = mysqli_fetch_array($resultado)) {
+            $dias_animal =  $row['dias_animal'];
+            $kg_acumulados = $row['kg_acumulados'];
+        }  
+
+    }else{
+
+        $dias_animal= $corral_vacas;
+        $kg_acumulados = $kg;
+    }  
+
+    
+        
+    
+   
+        
+
+     
                     // Agregamos la aplicacion a la tabla de medicamentos
                     $insertar = "INSERT INTO medicamentos(producto, nombre, costo, cantidad, arete, corral, total, fecha) VALUES ('$vacuna','$nombre_vac','$costo','$qty','$vaca','$corral','$total_new','$hoy')";
                     $resultado = mysqli_query($conexion,$insertar);
@@ -62,21 +93,19 @@ if ($filas>0) {
                     $data['result'] = 'VACUNA APLICADA SATISFACTORIAMENTE';
 
 
-                }else{
-                    $data['status'] = 'ERROR';
-                    $data['result'] = 'NO HAY EXISTENCIA SUFICIENTE';
-                }
-               //No hay existencia
+    }else{ 
+        //No hay existencia suficiente
+        $data['status'] = 'ERROR';
+        $data['result'] = 'NO HAY EXISTENCIA SUFICIENTE';
+
+    }
+        
             }
 else {
+     //No existe la formula 
     $data['status'] = 'ERROR';
     $data['result'] = 'LA FORMULA NO EXISTE O ESTA INACTIVA';
     }
-
-    //No existe la formula 
-
-
-
 
             }
 
