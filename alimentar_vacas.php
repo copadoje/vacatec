@@ -39,14 +39,12 @@ if ($filas>0) {
     //Fecha de hoy
     $hoy =strftime( "%Y-%m-%d", time() );
 
-
     /*
 
           Hay existencia
 
     */
     
-        
     $consulta="SELECT * FROM control_pastura WHERE corral='$corral'";
     $resultado = mysqli_query($conexion, $consulta);
     $filas=mysqli_num_rows($resultado);
@@ -54,44 +52,49 @@ if ($filas>0) {
     //Si ya hay un registro de ese corral
     if ($filas>0) {
         while ($row = mysqli_fetch_array($resultado)) {
-            $dias_animal =  $row['dias_animal'];
-            $kg_acumulados = $row['kg_acumulados'];
+            $dias_animale =  $row['dias_animal'];
+            $kg_acumuladose = $row['kg_acumulados'];
         }  
 
-    }else{
+        $dias_animal = $dias_animale + $corral_vacas;
+        $kg_acumulados = $kg_acumuladose + $kg;
 
+    }else{
         $dias_animal= $corral_vacas;
         $kg_acumulados = $kg;
     }  
 
-    
-        
-    
-   
-        
+    $consumo_animal = $kg/$corral_vacas;
+    $consumo_promedio = $kg_acumulados/$dias_animal;
+    $costo_total = $kg * $costo_form;
+    $costo_vaca = $costo_total / $corral_vacas;
 
-     
-                    // Agregamos la aplicacion a la tabla de medicamentos
-                    $insertar = "INSERT INTO medicamentos(producto, nombre, costo, cantidad, arete, corral, total, fecha) VALUES ('$vacuna','$nombre_vac','$costo','$qty','$vaca','$corral','$total_new','$hoy')";
-                    $resultado = mysqli_query($conexion,$insertar);
-                    // Actualizamos existencia de vacunas
-                    $existencia_new = ($existencia - $qty);
-                    $total_stock = ($existencia_new * $costo);
-                    $actualizar = "UPDATE vacunas SET existencia ='$existencia_new', total ='$total_stock' WHERE id='$vacuna'"; 
-                    $resultado = mysqli_query($conexion,$actualizar); 
-                    //Agregar gasto a vaca
-                    if(is_null($gasto)){
-                        $gasto_vaca = $total_new;
-                    }else{
-                        $gasto_vaca = $gasto + $total_new;
-                    }
-                    
-                    $actualizar = "UPDATE vacas SET gasto ='$gasto_vaca' WHERE arete='$vaca'"; 
-                    $resultado = mysqli_query($conexion,$actualizar); 
+    // Agregamos la aplicacion a la tabla de consumo pastura
+    $insertar = "INSERT INTO control_pastura(corral, formula, num_animales, dias_animal, kg_ofrecidos, kg_acumulados, consumo_animal, consumo_promedio, costo_kg, costo_total,fecha) VALUES ('$corral','$formula','$corral_vacas','$dias_animal','$kg','$kg_acumulados','$consumo_animal','$consumo_promedio','$costo_form','$costo_total','$hoy')";
+    $resultado = mysqli_query($conexion,$insertar);
 
+    // Actualizamos existencia de formulas
+    $existencia_new = ($existencia_form - $kg);
+    $actualizar = "UPDATE formulas SET existencia ='$existencia_new' WHERE id='$formula'"; 
+    $resultado = mysqli_query($conexion,$actualizar); 
+    
+    //Agregamos gasto a las vacas del corral
+    $consulta="SELECT * FROM vacas WHERE numero_corral='$corral' and status='1'";
+    $resultado = mysqli_query($conexion, $consulta);
+    $filas=mysqli_num_rows($resultado);
+    while ($row = mysqli_fetch_array($resultado)) {
+        $vaca_arete =  $row['arete'];
+        $gasto_vacaold = $row['gasto'];
+        if(is_null($gasto_vacaold)){
+            $gasto_new = $costo_vaca;
+        }else{
+            $gasto_new = ($costo_vaca + $gasto_vacaold);
+        }
+        $actua = "UPDATE vacas SET gasto ='$gasto_new' WHERE arete='$vaca_arete'"; 
+        $resul = mysqli_query($conexion,$actua); 
+    }  
                     $data['status'] = 'OK';
-                    $data['result'] = 'VACUNA APLICADA SATISFACTORIAMENTE';
-
+                    $data['result'] = 'CORRAL ALIMENTADO EXITOSAMENTE';
 
     }else{ 
         //No hay existencia suficiente
