@@ -1,9 +1,4 @@
-<?php 
-
-include "config.php";
-include "utils.php";
-
-$userr = ($_POST['usuario']);
+<?php
 
 $user = ($_POST['username']);
 $key = ($_POST['key']);
@@ -19,24 +14,6 @@ $filas=mysqli_num_rows($resultado);
         if($db_key == $key){
 
             //AQUI VA EL CODIGO
-
-            $data = array();
-
-$consulta="SELECT * FROM usuarios WHERE username='$user'";
-$resultado = mysqli_query($conexion, $consulta);
-
-$filas=mysqli_num_rows($resultado);
-if ($filas>0) {
-                $usuario_info = $resultado->fetch_assoc();
-                $data['status'] = 'OK';
-                $data['result'] = $usuario_info;
-            }
-else {
-        $data['status'] = 'ERROR';
-        $data['result'] = 'EL USUARIO NO EXISTE';    
-    }
-
-    //END
             
 
         }else{
@@ -50,7 +27,4 @@ else {
 
     }
 
-
-echo json_encode($data);
-
-?>
+    ?>

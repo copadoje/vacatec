@@ -1,9 +1,14 @@
 <?php 
 
+/* Agregar vacas: 
+Status 1 = Activa  2= Enferma  3= Finalizada  4= Muerta
+Sexo 1 = Macho 2 = Hembra
+*/
 include "config.php";
 include "utils.php";
 
 $arete = ($_POST['arete']);
+$peso = ($_POST['peso_fin']);
 
 $user = ($_POST['username']);
 $key = ($_POST['key']);
@@ -22,22 +27,33 @@ $filas=mysqli_num_rows($resultado);
 
             $data = array();
 
-$consulta="SELECT * FROM vacas WHERE arete='$arete'";
-$resultado = mysqli_query($conexion, $consulta);
+            $consulta="SELECT * FROM vacas WHERE arete='$arete' and status='1'";
+            $resultado = mysqli_query($conexion, $consulta);
 
 $filas=mysqli_num_rows($resultado);
 if ($filas>0) {
-                $vaca_info = $resultado->fetch_assoc();
-                $data['status'] = 'OK';
-                $data['result'] = $vaca_info;
+
+    $hoy =strftime( "%Y-%m-%d", time() );
+
+    while ($row = mysqli_fetch_array($resultado)) {
+        $corral = $row['numero_corral'];
+        }  
+
+        $actualizar = "UPDATE vacas SET status ='3', fecha_finalizacion ='$hoy', peso_final = '$peso' WHERE arete='$arete'"; 
+        $resultado = mysqli_query($conexion,$actualizar); 
+        
+        $data['status'] = 'OK';
+        $data['result'] = 'VACA FINALIZADA';
+    
             }
 else {
-        $data['status'] = 'ERROR';
-        $data['result'] = 'EL ARETE NO EXISTE EN LA ENGORDA';    
-    }
+
+    $data['status'] = 'ERROR';
+    $data['result'] = 'EL NUMERO DE ARETE NO EXISTE O SE ENCUENTRA FINALIZADO';
+
+}
 
     //END
-            
 
         }else{
             $data['status'] = 'ERROR';
@@ -49,8 +65,6 @@ else {
         $data['result'] = 'USUARIO NO ESTA CONECTADO'; 
 
     }
-
-
 
 echo json_encode($data);
 

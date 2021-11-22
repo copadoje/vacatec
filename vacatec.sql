@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2021 a las 23:13:54
+-- Tiempo de generación: 22-11-2021 a las 05:26:55
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -49,7 +49,8 @@ CREATE TABLE `control_pastura` (
 INSERT INTO `control_pastura` (`id`, `corral`, `formula`, `num_animales`, `dias_animal`, `kg_ofrecidos`, `kg_acumulados`, `consumo_animal`, `consumo_promedio`, `costo_kg`, `costo_total`, `fecha`) VALUES
 (1, 1, 0, 3, 3, 50, 50, 16.6667, 16.6667, 4.6, 230, '2021-11-20'),
 (2, 1, 1, 3, 6, 50, 100, 16.6667, 16.6667, 4.6, 230, '2021-11-20'),
-(3, 1, 1, 4, 10, 70, 170, 17.5, 17, 4.6, 322, '2021-11-20');
+(3, 1, 1, 4, 10, 70, 170, 17.5, 17, 4.6, 322, '2021-11-20'),
+(4, 1, 1, 5, 15, 45, 215, 9, 14.3333, 4.6, 207, '2021-11-22');
 
 -- --------------------------------------------------------
 
@@ -64,25 +65,24 @@ CREATE TABLE `corrales` (
   `fecha_inicio` date DEFAULT NULL,
   `num_vacas` int(11) DEFAULT NULL,
   `num_machos` int(11) DEFAULT NULL,
-  `num_hembras` int(11) DEFAULT NULL,
-  `fecha_fin` date DEFAULT NULL
+  `num_hembras` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `corrales`
 --
 
-INSERT INTO `corrales` (`id`, `prom_edad`, `status`, `fecha_inicio`, `num_vacas`, `num_machos`, `num_hembras`, `fecha_fin`) VALUES
-(1, 11, 1, '2021-11-08', 4, 3, 1, NULL),
-(2, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(6, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(7, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(8, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(9, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(10, NULL, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `corrales` (`id`, `prom_edad`, `status`, `fecha_inicio`, `num_vacas`, `num_machos`, `num_hembras`) VALUES
+(1, 10.6, 1, '2021-11-08', 5, 4, 1),
+(2, NULL, 1, NULL, NULL, NULL, NULL),
+(3, NULL, 1, NULL, NULL, NULL, NULL),
+(4, NULL, 1, NULL, NULL, NULL, NULL),
+(5, NULL, 1, NULL, NULL, NULL, NULL),
+(6, NULL, 1, NULL, NULL, NULL, NULL),
+(7, NULL, 1, NULL, NULL, NULL, NULL),
+(8, NULL, 1, NULL, NULL, NULL, NULL),
+(9, NULL, 1, NULL, NULL, NULL, NULL),
+(10, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -129,8 +129,9 @@ CREATE TABLE `formulas` (
 --
 
 INSERT INTO `formulas` (`id`, `nombre`, `maiz`, `soya`, `silo`, `rastrojo`, `algodon`, `ddg`, `avena`, `melaza`, `costo`, `existencia`, `status`) VALUES
-(1, 'gt1', 10, 20, 40, 0, 1.9, 8.1, 10, 10, 4.6, 380, 1),
-(2, 'gt2', 40, 2, 40, 0, 5, 3, 10, 0, 4.6, NULL, 1);
+(1, 'gt1', 10, 20, 40, 0, 1.9, 8.1, 10, 10, 4.6, 338, 1),
+(2, 'gt2', 40, 2, 40, 0, 5, 3, 10, 0, 4.6, NULL, 1),
+(3, 'test', 10, 10, 10, 70, 0, 0, 0, 0, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -151,14 +152,15 @@ CREATE TABLE `insumos` (
 --
 
 INSERT INTO `insumos` (`id`, `insumo`, `precio`, `existencia`, `total`) VALUES
-(1, 'MAIZ', 4.8, 199946, 959741),
-(2, 'SOYA', 9.8, 10890, 106722),
-(3, 'SILO', 1, 199780, 199780),
+(1, 'MAIZ', 4.8, 199956, 959787),
+(2, 'SOYA', 9.8, 10889.4, 106716),
+(3, 'SILO', 1, 199779, 199779),
 (4, 'RASTROJO PICADO', 1.8, 10000, 18000),
-(5, 'SEMILLA DE ALGODON', 6.7, 22989.5, 154030),
-(6, 'DDG', 7, 44955.5, 314688),
-(7, 'AVENA', 3.5, 7945, 27807.5),
-(8, 'MELAZA', 3, 29945, 89835);
+(5, 'SEMILLA DE ALGODON', 6.7, 22989.4, 154029),
+(6, 'DDG', 7, 44955.3, 314687),
+(7, 'AVENA', 3.5, 7944.7, 27806.4),
+(8, 'MELAZA', 3, 29944.7, 89834.1),
+(9, 'TEST', 87, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,8 @@ CREATE TABLE `medicamentos` (
 
 INSERT INTO `medicamentos` (`id`, `producto`, `nombre`, `costo`, `cantidad`, `arete`, `corral`, `total`, `fecha`) VALUES
 (1, 1, 'CLOSTRI-10', 48, 2, '12341', 1, 96, '2021-11-15'),
-(2, 2, 'SINGLE SHOT', 112, 2, '12341', 1, 224, '2021-11-15');
+(2, 2, 'SINGLE SHOT', 112, 2, '12341', 1, 224, '2021-11-15'),
+(3, 1, 'CLOSTRI-10', 48, 2, '12341', 1, 96, '2021-11-22');
 
 -- --------------------------------------------------------
 
@@ -195,8 +198,15 @@ INSERT INTO `medicamentos` (`id`, `producto`, `nombre`, `costo`, `cantidad`, `ar
 CREATE TABLE `session` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `keygen` varchar(100) NOT NULL
+  `keygen` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `session`
+--
+
+INSERT INTO `session` (`id`, `username`, `keygen`) VALUES
+(4, 'copadoemmanuel', 'fa1ee9a49c5ca741d6f8181f46125cd775297b86b764a4ed85993fb3e5d647af435759a34f9a5865f6b3ece68c4432bf7c710f40aecebf434496fc0bd9b77fd8');
 
 -- --------------------------------------------------------
 
@@ -221,7 +231,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `username`, `nombre`, `apellido`, `correo`, `password`, `nivel`) VALUES
 (1, 'copadoje', 'Jorge', 'Copado', 'copadoemmanuel@gmail.com', 'Password2021', 1),
 (2, 'copadoemmanuel', 'Jorge  ', 'Copado', 'copadoj@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 1),
-(3, 'copadoemmanuel2', 'Jorge  ', 'Copado', 'copadoj@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 2);
+(3, 'copadoemmanuel2', 'Jorge  ', 'Copado', 'copadoj@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 2),
+(4, 'copadoemmanuel3', 'Jorge  ', 'Copado', 'copadoje@gmail.com', '3f5c62798e34136d650f7343cdc2b08c', 1);
 
 -- --------------------------------------------------------
 
@@ -242,6 +253,7 @@ CREATE TABLE `vacas` (
   `procedencia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` date NOT NULL,
   `fecha_finalizacion` date DEFAULT NULL,
+  `peso_final` float DEFAULT NULL,
   `costo_inicial` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -249,11 +261,12 @@ CREATE TABLE `vacas` (
 -- Volcado de datos para la tabla `vacas`
 --
 
-INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`, `costo_inicial`) VALUES
-(1, '12341', 1, 210.3, '2021-07-01', 11, 1, 381.167, 1, 'Cocula', '2021-11-08', NULL, 12000),
-(2, '12342', 2, 210.3, '2021-07-01', 15, 1, 157.167, 1, 'Cocula', '2021-11-08', NULL, 13000),
-(3, '12343', 1, 210.3, '2021-07-01', 9, 1, 157.167, 1, 'Granja', '2021-11-08', NULL, 0),
-(4, '12344', 1, 230.3, '2021-07-01', 9, 1, 80.5, 1, 'Granja', '2021-11-20', NULL, 0);
+INSERT INTO `vacas` (`id`, `arete`, `sexo`, `peso_ini`, `fecha_compra`, `edad`, `numero_corral`, `gasto`, `status`, `procedencia`, `fecha_registro`, `fecha_finalizacion`, `peso_final`, `costo_inicial`) VALUES
+(1, '12341', 1, 210.3, '2021-07-01', 11, 1, 518.567, 1, 'Cocula', '2021-11-08', NULL, NULL, 12000),
+(2, '12342', 2, 210.3, '2021-07-01', 15, 1, 198.567, 3, 'Cocula', '2021-11-08', '2021-11-22', 200, 13000),
+(3, '12343', 1, 210.3, '2021-07-01', 9, 1, 198.567, 1, 'Granja', '2021-11-08', NULL, NULL, 0),
+(4, '12344', 1, 230.3, '2021-07-01', 9, 1, 121.9, 1, 'Granja', '2021-11-20', NULL, NULL, 0),
+(5, '12345', 1, 230.3, '2021-07-01', 9, 1, 41.4, 1, 'Granja', '2021-11-22', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -275,13 +288,14 @@ CREATE TABLE `vacunas` (
 --
 
 INSERT INTO `vacunas` (`id`, `vacuna`, `presentacion`, `costo`, `existencia`, `total`) VALUES
-(1, 'CLOSTRI-10', 10, 48, 18, 864),
+(1, 'CLOSTRI-10', 10, 48, 36, 1728),
 (2, 'SINGLE SHOT', 10, 112, 18, 2016),
 (3, 'PROTECTOR-5', 10, 356.88, 20, 7137.6),
 (4, 'REVALOR G', 20, 27.8, 40, 1112),
 (5, 'MAXIBEEF', 20, 780, 40, 31200),
 (6, 'MASTER L5', 25, 1316.5, 50, 65825),
-(7, 'INMUNOIDI DB', 4, 205, 8, 1640);
+(7, 'INMUNOIDI DB', 4, 205, 8, 1640),
+(8, 'TEST', 4, 205, 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -355,7 +369,7 @@ ALTER TABLE `vacunas`
 -- AUTO_INCREMENT de la tabla `control_pastura`
 --
 ALTER TABLE `control_pastura`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `corrales`
@@ -373,43 +387,43 @@ ALTER TABLE `corrales_exis`
 -- AUTO_INCREMENT de la tabla `formulas`
 --
 ALTER TABLE `formulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `insumos`
 --
 ALTER TABLE `insumos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `session`
 --
 ALTER TABLE `session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `vacas`
 --
 ALTER TABLE `vacas`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `vacunas`
 --
 ALTER TABLE `vacunas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -25,6 +25,8 @@ $data = array();
             $data['result'] = 'USUARIO DESCONECTADO';
 
         }else{
+            $delete = "DELETE FROM session WHERE username='$user'";
+            $resultado = mysqli_query($conexion,$delete);
             $data['status'] = 'ERROR';
             $data['result'] = 'EL USUARIO NO EXISTE PERDERAS LA SESION'; 
         }
